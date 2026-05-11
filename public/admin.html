@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GeoQuest — Admin Panel</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="admin-body">
+
+  <!-- ═══ HEADER ═══ -->
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="logo">
+        <span class="logo-icon">🌍</span>
+        <span class="logo-text">GeoQuest <em>Admin</em></span>
+      </div>
+      <a href="/" class="btn-admin">← Gioca</a>
+    </div>
+  </header>
+
+  <main class="admin-container">
+
+    <!-- ═══ UPLOAD FORM ═══ -->
+    <section class="admin-card upload-section">
+      <h2 class="card-title">
+        <span class="title-num">01</span>
+        Carica nuova location
+      </h2>
+
+      <form id="uploadForm" enctype="multipart/form-data">
+
+        <!-- Drop zone immagine -->
+        <div class="drop-zone" id="dropZone">
+          <input type="file" id="imageInput" name="image" accept="image/*" hidden required />
+          <div class="drop-content" id="dropContent">
+            <div class="drop-icon">🖼️</div>
+            <p class="drop-title">Trascina un'immagine qui</p>
+            <p class="drop-sub">oppure <button type="button" class="link-btn" id="browseBtn">sfoglia i file</button></p>
+            <p class="drop-formats">JPEG, PNG, WebP — max 10 MB</p>
+          </div>
+          <img id="previewImg" src="" alt="Preview" style="display:none" />
+        </div>
+
+        <!-- Coordinate -->
+        <div class="form-row">
+          <div class="form-group">
+            <label for="latInput">
+              Latitudine
+              <span class="label-hint">−90 … 90</span>
+            </label>
+            <input type="number" id="latInput" name="lat"
+                   step="any" min="-90" max="90"
+                   placeholder="es. 41.8902" required />
+          </div>
+          <div class="form-group">
+            <label for="lngInput">
+              Longitudine
+              <span class="label-hint">−180 … 180</span>
+            </label>
+            <input type="number" id="lngInput" name="lng"
+                   step="any" min="-180" max="180"
+                   placeholder="es. 12.4922" required />
+          </div>
+        </div>
+
+        <!-- Nome location -->
+        <div class="form-group">
+          <label for="nameInput">
+            Nome location
+            <span class="label-hint">opzionale</span>
+          </label>
+          <input type="text" id="nameInput" name="name"
+                 placeholder="es. Colosseo, Roma" maxlength="100" />
+        </div>
+
+        <!-- Mini-mappa click per coordinate -->
+        <div class="form-group">
+          <label>
+            Oppure clicca sulla mappa per impostare le coordinate
+          </label>
+          <div id="adminMap" class="admin-map"></div>
+          <p class="map-tip">💡 Clicca sulla mappa per compilare automaticamente Lat/Lng</p>
+        </div>
+
+        <!-- Submit -->
+        <button type="submit" class="btn btn-primary btn-upload" id="btnUpload">
+          <span class="btn-icon">⬆️</span>
+          Carica immagine
+        </button>
+
+        <!-- Progress -->
+        <div class="upload-progress" id="uploadProgress" style="display:none">
+          <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+          </div>
+          <span id="uploadStatus">Caricamento…</span>
+        </div>
+
+      </form>
+    </section>
+
+    <!-- ═══ LISTA LOCATIONS ═══ -->
+    <section class="admin-card list-section">
+      <div class="card-header">
+        <h2 class="card-title">
+          <span class="title-num">02</span>
+          Location salvate
+        </h2>
+        <span class="location-count" id="locationCount">— immagini</span>
+      </div>
+
+      <div class="location-grid" id="locationGrid">
+        <div class="list-loading">Caricamento…</div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>

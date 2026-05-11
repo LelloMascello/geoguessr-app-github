@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GeoQuest — Indovina il luogo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ═══ HEADER ═══════════════════════════════════════════════════════════ -->
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="logo">
+        <span class="logo-icon">🌍</span>
+        <span class="logo-text">GeoQuest</span>
+      </div>
+      <div class="score-display">
+        <div class="score-item">
+          <span class="score-label">Miglior</span>
+          <span class="score-value" id="bestScore">—</span>
+        </div>
+        <div class="score-divider"></div>
+        <div class="score-item">
+          <span class="score-label">Giocate</span>
+          <span class="score-value" id="gamesPlayed">0</span>
+        </div>
+      </div>
+      <a href="/admin" class="btn-admin">Admin ↗</a>
+    </div>
+  </header>
+
+  <!-- ═══ MAIN GAME ═════════════════════════════════════════════════════════ -->
+  <main class="game-container">
+
+    <!-- Loading state -->
+    <div class="loading-screen" id="loadingScreen">
+      <div class="loading-spinner"></div>
+      <p>Caricamento mappa…</p>
+    </div>
+
+    <!-- Error state -->
+    <div class="error-screen" id="errorScreen" style="display:none">
+      <div class="error-icon">⚠️</div>
+      <h2>Nessuna immagine trovata</h2>
+      <p>Carica almeno un'immagine dal pannello admin.</p>
+      <a href="/admin" class="btn btn-primary">Vai all'Admin</a>
+    </div>
+
+    <!-- Game Layout -->
+    <div class="game-layout" id="gameLayout" style="display:none">
+
+      <!-- LEFT: Immagine + Localname -->
+      <section class="panel panel-image">
+        <div class="image-wrapper">
+          <img id="locationImg" src="" alt="Indovina dove si trova questo posto" />
+          <div class="image-overlay">
+            <span class="image-hint">Osserva l'ambiente, l'architettura, la vegetazione…</span>
+          </div>
+        </div>
+        <div class="image-meta">
+          <span class="meta-badge">∞ Gioco infinito</span>
+          <span class="meta-inst">Clicca sulla mappa per scegliere</span>
+        </div>
+      </section>
+
+      <!-- RIGHT: Mappa + Controlli -->
+      <section class="panel panel-map">
+        <div class="map-container">
+          <div id="map"></div>
+          <div class="map-hint" id="mapHint">
+            <span>📍</span> Clicca per posizionare il tuo pin
+          </div>
+        </div>
+
+        <!-- Controlli -->
+        <div class="controls">
+          <div class="guess-info" id="guessInfo" style="display:none">
+            <span class="guess-coords" id="guessCoords"></span>
+          </div>
+          <button class="btn btn-primary btn-confirm" id="btnConfirm" disabled>
+            <span class="btn-icon">🎯</span>
+            Conferma risposta
+          </button>
+        </div>
+
+        <!-- Risultato (hidden inizialmente) -->
+        <div class="result-panel" id="resultPanel" style="display:none">
+          <div class="result-header">
+            <div class="result-score-ring" id="resultScoreRing">
+              <svg viewBox="0 0 80 80">
+                <circle cx="40" cy="40" r="34" fill="none" stroke="var(--border)" stroke-width="6"/>
+                <circle cx="40" cy="40" r="34" fill="none" stroke="var(--accent)" stroke-width="6"
+                        stroke-dasharray="213.6" stroke-dashoffset="213.6"
+                        stroke-linecap="round" id="scoreCircle" style="transform:rotate(-90deg);transform-origin:center"/>
+              </svg>
+              <span class="result-score-num" id="resultScore">0</span>
+            </div>
+            <div class="result-details">
+              <div class="result-place" id="resultPlace">—</div>
+              <div class="result-distance">
+                <span class="dist-value" id="resultDist">—</span>
+                <span class="dist-unit">km di distanza</span>
+              </div>
+            </div>
+          </div>
+          <button class="btn btn-secondary btn-next" id="btnNext">
+            Prossimo round →
+          </button>
+        </div>
+
+      </section>
+    </div>
+  </main>
+
+  <!-- Toast notification -->
+  <div class="toast" id="toast"></div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
