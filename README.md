@@ -9,7 +9,7 @@ This repository contains a clone application of GeoGuessr. It includes various d
 
 ## Development Tools and Scripts
 
-This project utilizes several custom CLI tools for development workflow:
+This project utilizes several custom CLI tools for development workflow, which are linked directly from `node_modules/.bin`:
 
 *   **`mime`**: Utility for MIME type handling.
 *   **`mkdirp`**: Command-line utility for creating directories recursively.
