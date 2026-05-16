@@ -5,23 +5,11 @@ This repository contains a clone application of GeoGuessr. It includes various d
 ## Features
 
 *   GeoGuessr game functionality (implied).
-*   Support for various file types (implied by `mime` dependency).
-
-## Development Tools and Scripts
-
-This project utilizes several custom CLI tools for development workflow, which are linked directly from `node_modules/.bin`:
-
-*   **`mime`**: Utility for MIME type handling.
-*   **`mkdirp`**: Command-line utility for creating directories recursively.
-*   **`nodemon`**: Tool for automatically restarting the server during development.
-*   **`nodetouch`**: Utility for file touch operations.
-*   **`prebuild-install`**: Script used during the build/installation process.
-*   **`rc`**: Command-line interface tool.
-*   **`semver`**: Version management utility.
+*   Support for various file types.
 
 ## Installation and Dependencies
 
-The project relies on a modern set of dependencies managed by `package-lock.json`.
+The project relies on a modern set of dependencies.
 
 **Note on Dependencies:**
 The dependency tree has been updated to include packages like `better-sqlite3`, `buffer`, `busboy`, and `chokidar`, indicating a shift towards robust file handling and database interaction.
@@ -33,7 +21,7 @@ npm install
 
 ## Project Structure
 
-The project structure includes standard application files alongside development scripts located in `node_modules/.bin`.
+The project structure includes standard application files.
 
 ## Contributing
 
